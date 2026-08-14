@@ -40,7 +40,7 @@ to the upstream OpenZeppelin and Nethermind resources.
 | Tool | Version |
 |---|---|
 | Rust | stable (see `rust-toolchain.toml`) |
-| Target | `wasm32-unknown-unknown` |
+| Target | `wasm32v1-none` |
 | Stellar CLI | latest |
 
 ```bash
@@ -48,7 +48,7 @@ to the upstream OpenZeppelin and Nethermind resources.
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 # the wasm target — required, the build fails without it
-rustup target add wasm32-unknown-unknown
+rustup target add wasm32v1-none
 
 # Stellar CLI
 cargo install --locked stellar-cli
@@ -59,7 +59,7 @@ cargo install --locked stellar-cli
 ```bash
 git clone https://github.com/sotto-labs/sotto-contracts.git
 cd sotto-contracts
-cargo build --target wasm32-unknown-unknown --release
+cargo build --target wasm32v1-none --release
 cargo test
 ```
 
@@ -163,7 +163,7 @@ there:
 ```bash
 cargo fmt --all -- --check
 cargo clippy --all-targets -- -D warnings
-cargo build --target wasm32-unknown-unknown --release
+cargo build --target wasm32v1-none --release
 cargo test
 ```
 
