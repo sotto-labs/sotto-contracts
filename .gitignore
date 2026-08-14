@@ -1,0 +1,8 @@
+/target
+**/*.wasm
+.soroban
+.stellar
+*.env
+.env*
+!.env.example
+.DS_Store
