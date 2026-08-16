@@ -10,7 +10,12 @@
 
 pub mod ct_adapter;
 
-use soroban_sdk::{contract, contractimpl, Address, BytesN, Env, Vec};
+use soroban_sdk::{contract, contractimpl, Address, Env, Vec};
+use sotto_shared::invoice_registry::types::InvoiceId;
+use sotto_shared::settlement_orchestrator::{
+    errors::SettlementError,
+    types::{SettlementId, SettlementProof},
+};
 
 #[contract]
 pub struct SettlementOrchestrator;
@@ -38,7 +43,11 @@ impl SettlementOrchestrator {
     //               settlement (see netting-attestation)
     // DIFFICULTY: medium
     // LABELS: contracts, soroban, settlement
-    pub fn bind_settlement(_env: Env, _settlement_id: BytesN<32>, _invoice_ids: Vec<BytesN<32>>) {
+    pub fn bind_settlement(
+        _env: Env,
+        _settlement_id: SettlementId,
+        _invoice_ids: Vec<InvoiceId>,
+    ) -> Result<(), SettlementError> {
         todo!()
     }
 
@@ -62,7 +71,7 @@ impl SettlementOrchestrator {
     //               bookkeeping (see execute_partial_settlement)
     // DIFFICULTY: medium
     // LABELS: contracts, soroban, security
-    pub fn is_settlement_processed(_env: Env, _settlement_id: BytesN<32>) -> bool {
+    pub fn is_settlement_processed(_env: Env, _settlement_id: SettlementId) -> bool {
         todo!()
     }
 
@@ -92,10 +101,10 @@ impl SettlementOrchestrator {
     // LABELS: contracts, soroban, settlement
     pub fn execute_partial_settlement(
         _env: Env,
-        _settlement_id: BytesN<32>,
-        _invoice_ids: Vec<BytesN<32>>,
-        _proof: BytesN<32>,
-    ) {
+        _settlement_id: SettlementId,
+        _invoice_ids: Vec<InvoiceId>,
+        _proof: SettlementProof,
+    ) -> Result<(), SettlementError> {
         todo!()
     }
 }
@@ -118,7 +127,7 @@ impl SettlementOrchestrator {
 // LABELS: contracts, soroban, events
 pub fn emit_settlement_executed(
     _env: &Env,
-    _settlement_id: BytesN<32>,
+    _settlement_id: SettlementId,
     _buyer: Address,
     _supplier: Address,
 ) {

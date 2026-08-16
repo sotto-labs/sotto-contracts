@@ -7,6 +7,9 @@
 #![no_std]
 
 use soroban_sdk::{contract, contractimpl, BytesN, Env, Vec};
+use sotto_shared::invoice_registry::types::InvoiceId;
+use sotto_shared::netting_attestation::{errors::NettingError, types::NettingCommitment};
+use sotto_shared::settlement_orchestrator::types::SettlementId;
 
 #[contract]
 pub struct NettingAttestation;
@@ -37,9 +40,9 @@ impl NettingAttestation {
     // LABELS: contracts, soroban, cryptography
     pub fn construct_netting_commitment(
         _env: Env,
-        _invoice_ids: Vec<BytesN<32>>,
+        _invoice_ids: Vec<InvoiceId>,
         _salt: BytesN<32>,
-    ) -> BytesN<32> {
+    ) -> Result<NettingCommitment, NettingError> {
         todo!()
     }
 
@@ -67,10 +70,10 @@ impl NettingAttestation {
     // LABELS: contracts, soroban, cryptography
     pub fn record_netting(
         _env: Env,
-        _settlement_id: BytesN<32>,
-        _netting_commitment: BytesN<32>,
+        _settlement_id: SettlementId,
+        _netting_commitment: NettingCommitment,
         _membership_proof: BytesN<32>,
-    ) {
+    ) -> Result<(), NettingError> {
         todo!()
     }
 
@@ -91,7 +94,7 @@ impl NettingAttestation {
     // OUT OF SCOPE: recording new attestations (see record_netting)
     // DIFFICULTY: medium
     // LABELS: contracts, soroban, cryptography
-    pub fn verify_netting_attestation(_env: Env, _settlement_id: BytesN<32>) -> bool {
+    pub fn verify_netting_attestation(_env: Env, _settlement_id: SettlementId) -> bool {
         todo!()
     }
 
@@ -109,7 +112,10 @@ impl NettingAttestation {
     // OUT OF SCOPE: verification (see verify_netting_attestation)
     // DIFFICULTY: easy
     // LABELS: contracts, soroban, query
-    pub fn netting_commitment_by_settlement(_env: Env, _settlement_id: BytesN<32>) -> BytesN<32> {
+    pub fn netting_commitment_by_settlement(
+        _env: Env,
+        _settlement_id: SettlementId,
+    ) -> Result<NettingCommitment, NettingError> {
         todo!()
     }
 }

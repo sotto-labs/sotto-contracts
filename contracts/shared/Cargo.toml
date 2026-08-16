@@ -1,12 +1,10 @@
-# This crate is deliberately its own Cargo workspace (see the empty
-# [workspace] table below) rather than a member of the root workspace.
-# Segment 2 of the scaffold loop is whitelisted to touch contracts/shared/**
-# and each contract's types.rs / errors.rs / events.rs, but not the root
-# Cargo.toml or the four contract crates' lib.rs files. Self-containing this
-# crate lets it build and lint on its own without editing anything outside
-# that whitelist. Wiring it into the root workspace and into each contract's
-# lib.rs is carried-forward work — see the segment 2 STOP BLOCK.
-[workspace]
+# Segment 2b wires this crate into the four contract crates as a path
+# dependency. It is now implicitly part of the root workspace via that path
+# dependency (Cargo auto-absorbs local path deps of workspace members), so
+# it no longer declares its own [workspace] table — doing so conflicts with
+# being a dependency of another workspace's member ("multiple workspace
+# roots"). See the segment 2b STOP BLOCK.
+
 
 [package]
 name = "sotto-shared"

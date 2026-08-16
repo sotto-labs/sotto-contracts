@@ -9,6 +9,10 @@
 #![no_std]
 
 use soroban_sdk::{contract, contractimpl, Address, BytesN, Env, Vec};
+use sotto_shared::invoice_registry::{
+    errors::InvoiceError,
+    types::{InvoiceId, InvoiceStatus},
+};
 
 #[contract]
 pub struct InvoiceRegistry;
@@ -32,12 +36,12 @@ impl InvoiceRegistry {
     // LABELS: contracts, soroban, storage
     pub fn store_invoice(
         _env: Env,
-        _invoice_id: BytesN<32>,
+        _invoice_id: InvoiceId,
         _buyer: Address,
         _supplier: Address,
         _terms_hash: BytesN<32>,
         _nonce: u64,
-    ) {
+    ) -> Result<(), InvoiceError> {
         todo!()
     }
 
@@ -60,7 +64,10 @@ impl InvoiceRegistry {
     // OUT OF SCOPE: who is authorized to trigger a transition (see items 3, 4)
     // DIFFICULTY: medium
     // LABELS: contracts, soroban, state-machine
-    pub fn invoice_status(_env: Env, _invoice_id: BytesN<32>) -> u32 {
+    pub fn invoice_status(
+        _env: Env,
+        _invoice_id: InvoiceId,
+    ) -> Result<InvoiceStatus, InvoiceError> {
         todo!()
     }
 
@@ -77,7 +84,11 @@ impl InvoiceRegistry {
     // OUT OF SCOPE: settlement execution
     // DIFFICULTY: easy
     // LABELS: contracts, soroban, authorization
-    pub fn approve_invoice(_env: Env, _invoice_id: BytesN<32>, _caller: Address) {
+    pub fn approve_invoice(
+        _env: Env,
+        _invoice_id: InvoiceId,
+        _caller: Address,
+    ) -> Result<(), InvoiceError> {
         todo!()
     }
 
@@ -97,7 +108,11 @@ impl InvoiceRegistry {
     // OUT OF SCOPE: settlement execution
     // DIFFICULTY: easy
     // LABELS: contracts, soroban, state-machine
-    pub fn void_invoice(_env: Env, _invoice_id: BytesN<32>, _caller: Address) {
+    pub fn void_invoice(
+        _env: Env,
+        _invoice_id: InvoiceId,
+        _caller: Address,
+    ) -> Result<(), InvoiceError> {
         todo!()
     }
 
@@ -121,9 +136,9 @@ impl InvoiceRegistry {
     pub fn list_invoices_by_party(
         _env: Env,
         _party: Address,
-        _cursor: Option<BytesN<32>>,
+        _cursor: Option<InvoiceId>,
         _limit: u32,
-    ) -> Vec<BytesN<32>> {
+    ) -> Result<Vec<InvoiceId>, InvoiceError> {
         todo!()
     }
 }
