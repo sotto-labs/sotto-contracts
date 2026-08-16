@@ -11,6 +11,8 @@ use sotto_shared::invoice_registry::types::InvoiceId;
 use sotto_shared::netting_attestation::{errors::NettingError, types::NettingCommitment};
 use sotto_shared::settlement_orchestrator::types::SettlementId;
 
+mod test;
+
 #[contract]
 pub struct NettingAttestation;
 

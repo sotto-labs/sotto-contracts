@@ -10,6 +10,8 @@
 
 pub mod ct_adapter;
 
+mod test;
+
 use soroban_sdk::{contract, contractimpl, Address, Env, Vec};
 use sotto_shared::invoice_registry::types::InvoiceId;
 use sotto_shared::settlement_orchestrator::{

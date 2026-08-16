@@ -14,6 +14,8 @@ use sotto_shared::invoice_registry::{
     types::{InvoiceId, InvoiceStatus},
 };
 
+mod test;
+
 #[contract]
 pub struct InvoiceRegistry;
 
